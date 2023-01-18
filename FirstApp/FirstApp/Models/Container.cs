@@ -5,7 +5,7 @@ using SQLite;
 
 namespace FirstApp.Models
 {
-    internal class Container
+    public class Container
     {
         [PrimaryKey, AutoIncrement] 
         public int ID { get; set; }
