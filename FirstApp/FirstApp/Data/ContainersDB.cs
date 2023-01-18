@@ -8,6 +8,7 @@ namespace FirstApp.Data
     internal class ContainersDB
     {
         readonly SQLiteAsyncConnection db;
+
         public ContainersDB (string connectionString)
         {
             db = new SQLiteAsyncConnection (connectionString);
@@ -24,6 +25,7 @@ namespace FirstApp.Data
         {
             return db.Table<Container>().Where(i => i.ID== id).FirstOrDefaultAsync();
         }
+
         public Task<int> SaveContainerAsync(Container container)
         {
             if(container.ID != 0)
@@ -35,6 +37,7 @@ namespace FirstApp.Data
                 return db.InsertAsync(container);
             }
         }
+
         public Task<int> DeleteContainerAsync(Container container)
         {
             return db.DeleteAsync(container);
