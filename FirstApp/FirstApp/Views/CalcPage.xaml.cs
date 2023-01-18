@@ -9,7 +9,7 @@ using static Xamarin.Essentials.Permissions;
 
 namespace FirstApp
 {
-    public partial class MainPage : ContentPage
+    public partial class CalcPage : ContentPage
     {
         
         private double container;
@@ -18,7 +18,7 @@ namespace FirstApp
         private string result;
 
 
-        public MainPage()
+        public CalcPage()
         {
             InitializeComponent();
 
