@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FirstApp.Data
 {
-    internal class ContainersDB
+    public class ContainersDB
     {
         readonly SQLiteAsyncConnection db;
 

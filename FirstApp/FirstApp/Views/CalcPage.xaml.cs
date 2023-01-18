@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
 
-namespace FirstApp
+namespace FirstApp.Views
 {
     public partial class CalcPage : ContentPage
     {

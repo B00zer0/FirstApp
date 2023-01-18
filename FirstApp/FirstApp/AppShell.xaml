@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FirstApp.AppShell"
        xmlns:views="clr-namespace:FirstApp.Views">
-    <TabBar>
+    <TabBar >
         <ShellContent Title="Калькулятор"
                       Icon="Calc_Icon.png"
                       ContentTemplate="{DataTemplate views:CalcPage}">
