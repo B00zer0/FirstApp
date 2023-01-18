@@ -11,7 +11,7 @@ namespace FirstApp
 {
     public partial class MainPage : ContentPage
     {
-
+        
         private double container;
         private double mass;
         private int numOfContainers;
