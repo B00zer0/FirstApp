@@ -19,5 +19,10 @@ namespace FirstApp
 
             Routing.RegisterRoute(nameof(CalcPage), typeof(CalcPage));
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -2,19 +2,24 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FirstApp.AppShell"
-       xmlns:views="clr-namespace:FirstApp.Views">
+       xmlns:views="clr-namespace:FirstApp.Views"
+       BackgroundColor="#2e2e2e"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarTitleColor="Green">
+    
     <TabBar >
         <ShellContent Title="Калькулятор"
-                      Icon="Calc_Icon.png"
+                      Icon="CalculIco.png"
                       ContentTemplate="{DataTemplate views:CalcPage}">
             
         </ShellContent>
 
         <ShellContent Title="Категории"
                       Icon="Category.png"
-                      ContentTemplate="{DataTemplate views:CategoryPage}">
+                      ContentTemplate="{DataTemplate views:CategoryPage}" >
 
         </ShellContent>
+    
     </TabBar>
     
 </Shell>
