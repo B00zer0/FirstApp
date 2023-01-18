@@ -4,7 +4,17 @@
              x:Class="FirstApp.AppShell"
        xmlns:views="clr-namespace:FirstApp.Views">
     <TabBar>
-        
+        <ShellContent Title="Калькулятор"
+                      Icon="Calc_Icon.png"
+                      ContentTemplate="{DataTemplate views:CalcPage}">
+            
+        </ShellContent>
+
+        <ShellContent Title="Категории"
+                      Icon="Category.png"
+                      ContentTemplate="{DataTemplate views:CategoryPage}">
+
+        </ShellContent>
     </TabBar>
     
 </Shell>
