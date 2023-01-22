@@ -13,10 +13,10 @@ namespace FirstApp.Views
     {
         
         private double _container;
-        private double _mass;
+        private double _totalMass;
         private int _numOfContainers;
         private string _result;
-
+        
 
         public CalcPage()
         {
@@ -26,11 +26,13 @@ namespace FirstApp.Views
 
         private void ContainerContentCounting()
         {
-            _container = Convert.ToDouble(ContainerB.Text);
-            _mass = Convert.ToDouble(Mass.Text);
+            _container = Convert.ToDouble(Container.Text);
+            _totalMass = Convert.ToDouble(Mass.Text);
             _numOfContainers = Convert.ToInt32(numofcontainers.Text);
-            _result = Convert.ToString(_mass - _container * _numOfContainers);
+            _result = Convert.ToString(_totalMass - _container * _numOfContainers);
         }
+
+
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
