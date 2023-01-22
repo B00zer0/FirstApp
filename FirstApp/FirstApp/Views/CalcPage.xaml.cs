@@ -12,10 +12,10 @@ namespace FirstApp.Views
     public partial class CalcPage : ContentPage
     {
         
-        private double container;
-        private double mass;
-        private int numOfContainers;
-        private string result;
+        private double _container;
+        private double _mass;
+        private int _numOfContainers;
+        private string _result;
 
 
         public CalcPage()
@@ -24,21 +24,18 @@ namespace FirstApp.Views
 
         }
 
+        private void ContainerContentCounting()
+        {
+            _container = Convert.ToDouble(ContainerB.Text);
+            _mass = Convert.ToDouble(Mass.Text);
+            _numOfContainers = Convert.ToInt32(numofcontainers.Text);
+            _result = Convert.ToString(_mass - _container * _numOfContainers);
+        }
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
             ContainerContentCounting();
-            result_output.Text = result;
-        }
-
-        private void ContainerContentCounting()
-        {
-            container = Convert.ToDouble(ContainerB.Text);
-            mass = Convert.ToDouble(Mass.Text);
-            numOfContainers = Convert.ToInt32(numofcontainers.Text);
-            result = Convert.ToString(mass - container * numOfContainers);
-
-
+            result_output.Text = _result;
         }
 
         private void BtnPlus_Clicked(object sender, EventArgs e)
@@ -47,12 +44,12 @@ namespace FirstApp.Views
             if (result_output.Text == "0")
             {
                 ContainerContentCounting();
-                result_output.Text = result;
+                result_output.Text = _result;
             }
             else
             {
                 ContainerContentCounting();
-                result_output.Text = Convert.ToString(Convert.ToDouble(result_output.Text) + Convert.ToDouble(result));
+                result_output.Text = Convert.ToString(Convert.ToDouble(result_output.Text) + Convert.ToDouble(_result));
             }
         }
 
