@@ -32,7 +32,7 @@ namespace FirstApp.Views
             _result = Convert.ToString(_totalMass - _container * _numOfContainers);
         }
 
-
+        //e
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
