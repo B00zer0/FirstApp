@@ -33,7 +33,7 @@ namespace FirstApp.Views
         }
 
 
-        //я ЕГОРЛЫК!"!WWWWW
+        //я ЕГОРЛЫК!"!WWWWWDDDD
         private void BttResult_Clicked(object sender, EventArgs e)
         {
             ContainerContentCounting();
