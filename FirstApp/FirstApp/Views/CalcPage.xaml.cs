@@ -1,14 +1,17 @@
-﻿using System;
+﻿using FirstApp.Data;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using static Xamarin.Essentials.Permissions;
+using FirstApp.Models;
 
 namespace FirstApp.Views
 {
+    
     public partial class CalcPage : ContentPage
     {
         
@@ -21,6 +24,7 @@ namespace FirstApp.Views
         public CalcPage()
         {
             InitializeComponent();
+            BindingContext = new Container();
 
         }
 
@@ -31,13 +35,12 @@ namespace FirstApp.Views
             _numOfContainers = Convert.ToInt32(numofcontainers.Text);
             _result = Convert.ToString(_totalMass - _container * _numOfContainers);
         }
-       
-      
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
             ContainerContentCounting();
             result_output.Text = _result;
+
         }
 
         private void BtnPlus_Clicked(object sender, EventArgs e)
@@ -58,6 +61,16 @@ namespace FirstApp.Views
         private void BtnClr_Clicked(object sender, EventArgs e)
         {
             result_output.Text = "0";
+        }
+
+
+        private async void BtnSave_Clicked(object sender, EventArgs e)
+        {
+            Container container = (Container)BindingContext;
+            await App.ContainersDB.SaveContainerAsync(container);
+
+            var items = await ContainersDB.GetContainersAsync();
+            MyPicker.ItemsSource = (System.Collections.IList)items;
         }
 
     }
