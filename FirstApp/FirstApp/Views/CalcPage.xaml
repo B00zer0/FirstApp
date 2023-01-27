@@ -34,10 +34,14 @@
                        ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
             </Frame>
             
-            <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                 <Entry x:Name="Mass" Placeholder="Общий Вес" Keyboard="Numeric"
                         ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
             </Frame>
+            <Frame BackgroundColor="#2e2e2e"  Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1">
+                <Picker x:Name="MyPicker"  
+                    ItemDisplayBinding="{Binding Text}" />
+            </Frame> 
 
 
         </Grid>
@@ -61,6 +65,8 @@
 
 
         </Grid>
+        <Entry Text="{Binding Text}"/>
+        <Button Text="Save" Clicked="BtnSave_Clicked"/>
 
 
     </StackLayout>
