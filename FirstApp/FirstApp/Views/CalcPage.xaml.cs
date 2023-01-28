@@ -66,11 +66,14 @@ namespace FirstApp.Views
 
         private async void BtnSave_Clicked(object sender, EventArgs e)
         {
-            Container container = (Container)BindingContext;
-            await App.ContainersDB.SaveContainerAsync(container);
+            if (CreateContainer.Text != null)
+            {
+                Container container = (Container)BindingContext;
+                await App.ContainersDB.SaveContainerAsync(container);
 
-            var items = await ContainersDB.GetContainersAsync();
-            MyPicker.ItemsSource = (System.Collections.IList)items;
+                var items = await ContainersDB.GetContainersAsync();
+                MyPicker.ItemsSource = (System.Collections.IList)items;
+            }
         }
 
     }
