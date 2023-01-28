@@ -65,7 +65,7 @@
 
 
         </Grid>
-        <Entry Text="{Binding Text}"/>
+        <Entry x:Name="CreateContainer" Text="{Binding Text}"/>
         <Button Text="Save" Clicked="BtnSave_Clicked"/>
 
 
