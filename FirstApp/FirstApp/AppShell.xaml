@@ -19,6 +19,11 @@
                       ContentTemplate="{DataTemplate views:CategoryPage}" >
 
         </ShellContent>
+        <ShellContent Title="Добавить"
+                      Icon="Category.png"
+                      ContentTemplate="{DataTemplate views:EditingPage}" >
+
+        </ShellContent>
     
     </TabBar>
     
