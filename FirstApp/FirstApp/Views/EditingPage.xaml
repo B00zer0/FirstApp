@@ -3,24 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FirstApp.Views.EditingPage"
              Background="#1e1e1e">
-    <CollectionView x:Name="collectionView"
-                        Margin="20"
-                        SelectionMode="Single"
-                        SelectionChanged="CollectionView_SelectionChanged">
+    <StackLayout>
+
+        <Entry  Placeholder="Название контейнера" Text="{Binding Text}"/>
+        <Entry  Placeholder="Вес контейнера" Text="{Binding MassOfContainer}" Keyboard="Numeric"/>
         
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical"
-                               ItemSpacing="10"/>
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout>
-                    <Label Text="{Binding Text}"
-                           FontSize="Medium"/>
-                    <Label Text="{Binding Text}"
-                           FontSize="Small"/>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        <Button Text="Добавить" Clicked="AddBtn_Clicked"/>
+
+        <CollectionView x:Name="collectionView"
+                            Margin="20"
+                            SelectionMode="Single"
+                            SelectionChanged="CollectionView_SelectionChanged">
+
+
+            
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Text}"
+                               FontSize="Medium"/>
+                        <Label Text="{Binding MassOfContainer}"
+                               FontSize="Small"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

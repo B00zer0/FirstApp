@@ -16,12 +16,12 @@ namespace FirstApp.Data
             db.CreateTableAsync<Container>().Wait();
         }
         
-        public static Task<List<Container>> GetContainersAsync()
+        public Task<List<Container>> GetContainersAsync()
         {
             return db.Table<Container>().ToListAsync();
         }
 
-        public static Task<Container> GetContainerAsync(int id)
+        public Task<Container> GetContainerAsync(int id)
         {
             return db.Table<Container>().Where(i => i.ID== id).FirstOrDefaultAsync();
         }
