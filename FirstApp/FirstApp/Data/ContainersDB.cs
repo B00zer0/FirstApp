@@ -33,7 +33,7 @@ namespace FirstApp.Data
             
         }
 
-        public static Task<int> DeleteContainerAsync(Container container)
+        public Task<int> DeleteContainerAsync(Container container)
         {
             return db.DeleteAsync(container);
         }

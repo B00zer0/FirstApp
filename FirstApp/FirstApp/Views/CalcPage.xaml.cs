@@ -31,9 +31,7 @@ namespace FirstApp.Views
         protected override async void OnAppearing()
         {
             MyPicker.ItemsSource = await App.ContainersDB.GetContainersAsync();           
-            base.OnAppearing();
-            
-            
+            base.OnAppearing();   
         }
 
         private async void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
