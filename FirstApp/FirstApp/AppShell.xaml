@@ -20,7 +20,7 @@
 
         </ShellContent>
         <ShellContent Title="Добавить"
-                      Icon="Category.png"
+                      Icon="AddingContainerIco.png"
                       ContentTemplate="{DataTemplate views:EditingPage}" >
 
         </ShellContent>

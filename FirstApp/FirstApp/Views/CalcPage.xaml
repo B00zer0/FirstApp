@@ -19,31 +19,28 @@
                 <ColumnDefinition Width="*" />
 
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
+
             <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                <Entry x:Name="Container" Placeholder="Вес контейнера" Keyboard="Numeric"
-                       ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
-            </Frame>
+                <Picker x:Name="MyPicker"  
+                        ItemDisplayBinding="{Binding Text}"
+                        SelectedIndexChanged="MyPicker_SelectedIndexChanged"
+                        Title="Контейнер"/>
+            </Frame> 
             
             <Frame BackgroundColor="#2e2e2e"  Grid.Column="2" Grid.Row="0" >
                 <Entry x:Name="numofcontainers" Placeholder="Кол-во" Keyboard="Numeric" MaxLength="6" 
                        ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
             </Frame>
-            
-            <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+
+            <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
                 <Entry x:Name="Mass" Placeholder="Общий Вес" Keyboard="Numeric"
                         ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
             </Frame>
-            <Frame BackgroundColor="#2e2e2e"  Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1">
-                <Picker x:Name="MyPicker"  
-                    ItemDisplayBinding="{Binding Text}" />
-            </Frame> 
-
-
+            
         </Grid>
         
         
@@ -65,8 +62,7 @@
 
 
         </Grid>
-        <Entry x:Name="CreateContainer" Text="{Binding Text}"/>
-        <Button Text="Save" Clicked="BtnSave_Clicked"/>
+        
 
 
     </StackLayout>

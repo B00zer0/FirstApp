@@ -9,6 +9,7 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using static Xamarin.Essentials.Permissions;
 using FirstApp.Models;
 
+
 namespace FirstApp.Views
 {
     
@@ -19,18 +20,34 @@ namespace FirstApp.Views
         private double _totalMass;
         private int _numOfContainers;
         private string _result;
-        
-
+        int _containerId;
+        Container container;
         public CalcPage()
         {
             InitializeComponent();
             BindingContext = new Container();
+        }
 
+        protected override async void OnAppearing()
+        {
+            MyPicker.ItemsSource = await App.ContainersDB.GetContainersAsync();           
+            base.OnAppearing();
+            
+            
+        }
+
+        private async void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _containerId = MyPicker.SelectedIndex + 1;
+            container = await App.ContainersDB.GetContainerAsync(_containerId);
         }
 
         private void ContainerContentCounting()
         {
-            _container = Convert.ToDouble(Container.Text);
+            if(container != null)
+            {
+                _container = Convert.ToDouble(container.MassOfContainer);
+            }
             _totalMass = Convert.ToDouble(Mass.Text);
             _numOfContainers = Convert.ToInt32(numofcontainers.Text);
             _result = Convert.ToString(_totalMass - _container * _numOfContainers);
@@ -61,19 +78,6 @@ namespace FirstApp.Views
         private void BtnClr_Clicked(object sender, EventArgs e)
         {
             result_output.Text = "0";
-        }
-
-
-        private async void BtnSave_Clicked(object sender, EventArgs e)
-        {
-            if (CreateContainer.Text != null)
-            {
-                Container container = (Container)BindingContext;
-                await App.ContainersDB.SaveContainerAsync(container);
-
-                var items = await ContainersDB.GetContainersAsync();
-                MyPicker.ItemsSource = (System.Collections.IList)items;
-            }
         }
 
     }
