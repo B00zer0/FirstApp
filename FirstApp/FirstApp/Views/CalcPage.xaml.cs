@@ -20,7 +20,7 @@ namespace FirstApp.Views
         private double _totalMass;
         private int _numOfContainers;
         private string _result;
-        
+        Category category;
         Container container;
         public CalcPage()
         {
@@ -30,14 +30,14 @@ namespace FirstApp.Views
 
         protected override async void OnAppearing()
         {
-            MyPicker.ItemsSource = await App.ContainersDB.GetContainersAsync();           
+            MyPicker.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            SavePicker.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
             base.OnAppearing();   
         }
 
         private void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             container = (Container)MyPicker.SelectedItem;
-           
         }
 
         private void ContainerContentCounting()
@@ -55,7 +55,6 @@ namespace FirstApp.Views
         {
             ContainerContentCounting();
             result_output.Text = _result;
-
         }
 
         private void BtnPlus_Clicked(object sender, EventArgs e)
@@ -78,5 +77,15 @@ namespace FirstApp.Views
             result_output.Text = "0";
         }
 
+        private void SavePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            category = (Category)SavePicker.SelectedItem;
+        }
+
+        private async void BtnSave_Clicked(object sender, EventArgs e)
+        {
+            category.CategoryMass = result_output.Text;
+            await App.CategoriesDB.UpdateCategoryAsync(category);
+        }
     }
 }

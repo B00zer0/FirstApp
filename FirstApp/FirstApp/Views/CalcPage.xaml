@@ -62,8 +62,13 @@
 
 
         </Grid>
-        
-
+        <Frame BackgroundColor="#2e2e2e">
+            <Picker x:Name="SavePicker"  
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndexChanged="SavePicker_SelectedIndexChanged"
+                        Title="Категория"/>
+        </Frame>
+        <Button Text="Сохранить" x:Name="BtnSave" Clicked="BtnSave_Clicked" />
 
     </StackLayout>
 

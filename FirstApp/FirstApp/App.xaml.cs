@@ -9,6 +9,7 @@ namespace FirstApp
     public partial class App : Application
     {
         static ContainersDB containersDB;
+        static CategoriesDB categoriesDB;
 
         public static ContainersDB ContainersDB
         {
@@ -21,6 +22,19 @@ namespace FirstApp
                         (Environment.SpecialFolder.LocalApplicationData), "ContainersDatabase.db3"));
                 } 
                return containersDB;
+            }
+        }
+        public static CategoriesDB CategoriesDB
+        {
+            get           
+            {
+               if(categoriesDB == null)
+                {
+                    categoriesDB = new CategoriesDB(
+                        Path.Combine(Environment.GetFolderPath
+                        (Environment.SpecialFolder.LocalApplicationData), "CategoriesDatabase.db3"));
+                } 
+               return categoriesDB;
             }
         }
 
