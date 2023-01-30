@@ -1,9 +1,9 @@
 ﻿using FirstApp.Data;
 using FirstApp.Models;
 using System;
+using System.Linq;
 using Xamarin.Forms;
-
-
+using Xamarin.Forms.Internals;
 
 namespace FirstApp.Views
 {
@@ -11,7 +11,7 @@ namespace FirstApp.Views
     public partial class EditingPage : ContentPage
     {
         
-        private Container _container;
+        private int _containerId;
 
         public EditingPage()
         {
@@ -26,20 +26,26 @@ namespace FirstApp.Views
 
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
-                Container container = (Container)BindingContext;
-                await App.ContainersDB.SaveContainerAsync(container);
-                collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            Container container = (Container)BindingContext;
+            await App.ContainersDB.SaveContainerAsync(container);
+            await Shell.Current.GoToAsync("..");
+            collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
         }
 
-        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private  void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _container = collectionView.SelectedItem as Container;
+            if(e.CurrentSelection != null)
+            {
+                Container container = (Container)e.CurrentSelection.FirstOrDefault();
+                _containerId = container.ID;
+            }
         }
 
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
-                await App.ContainersDB.DeleteContainerAsync(_container);
-                collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            Container container = await App.ContainersDB.GetContainerAsync(_containerId);
+            await App.ContainersDB.DeleteContainerAsync(container);
+            collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
         }
 
     }

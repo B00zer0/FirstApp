@@ -20,7 +20,7 @@ namespace FirstApp.Views
         private double _totalMass;
         private int _numOfContainers;
         private string _result;
-        int _containerId;
+        
         Container container;
         public CalcPage()
         {
@@ -34,10 +34,10 @@ namespace FirstApp.Views
             base.OnAppearing();   
         }
 
-        private async void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
+        private void MyPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _containerId = MyPicker.SelectedIndex + 1;
-            container = await App.ContainersDB.GetContainerAsync(_containerId);
+            container = (Container)MyPicker.SelectedItem;
+           
         }
 
         private void ContainerContentCounting()
