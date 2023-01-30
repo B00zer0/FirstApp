@@ -7,8 +7,21 @@
 
         <Entry  Placeholder="Название контейнера" Text="{Binding Text}"/>
         <Entry  Placeholder="Вес контейнера" Text="{Binding MassOfContainer}" Keyboard="Numeric"/>
+        <Grid ColumnSpacing="1" Padding="11,11,15,10">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            
+            <Button Text="Добавить" Clicked="AddBtn_Clicked" Grid.Column="0"/>
+            <Button Text="Удалить" Clicked="DeleteBtn_Clicked" Padding="30,10,30,10" Grid.Column="1"/>
+            
+        </Grid>
         
-        <Button Text="Добавить" Clicked="AddBtn_Clicked"/>
 
         <CollectionView x:Name="collectionView"
                             Margin="20"
