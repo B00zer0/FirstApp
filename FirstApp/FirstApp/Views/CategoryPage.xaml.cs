@@ -29,9 +29,12 @@ namespace FirstApp.Views
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             Category category = (Category)BindingContext;
-            await App.CategoriesDB.SaveCategoryAsync(category);
-            await Shell.Current.GoToAsync("..");
-            collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            if(category != null)
+            {
+                await App.CategoriesDB.SaveCategoryAsync(category);
+                await Shell.Current.GoToAsync("..");
+                collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            }
         }
 
         private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,8 +50,11 @@ namespace FirstApp.Views
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
             Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
-            await App.CategoriesDB.DeleteCategoryAsync(category);
-            collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            if (category != null)
+            {
+                await App.CategoriesDB.DeleteCategoryAsync(category);
+                collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            }
         }
     }
 }
