@@ -46,9 +46,12 @@ namespace FirstApp.Views
 
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
-            Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
-            await App.CategoriesDB.DeleteCategoryAsync(category);
-            collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            if (_categoryId != -1)
+            {
+                Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
+                await App.CategoriesDB.DeleteCategoryAsync(category);
+                collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            }
         }
     }
 }
