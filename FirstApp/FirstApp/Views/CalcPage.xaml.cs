@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using static Xamarin.Essentials.Permissions;
 using FirstApp.Models;
+using static SQLite.SQLite3;
 
 
 namespace FirstApp.Views
@@ -22,6 +23,7 @@ namespace FirstApp.Views
         private string _result;
         Category category;
         Container container;
+
         public CalcPage()
         {
             InitializeComponent();
@@ -87,6 +89,16 @@ namespace FirstApp.Views
             if(category != null)
             {
                 category.CategoryMass = result_output.Text;
+                await App.CategoriesDB.UpdateCategoryAsync(category);
+            }
+        }
+
+        private async void BtnAdd_Clicked(object sender, EventArgs e)
+        {
+           
+            if (category != null)
+            {
+                category.CategoryMass = Convert.ToString(Convert.ToDouble(result_output.Text) + Convert.ToDouble(category.CategoryMass)); 
                 await App.CategoriesDB.UpdateCategoryAsync(category);
             }
         }

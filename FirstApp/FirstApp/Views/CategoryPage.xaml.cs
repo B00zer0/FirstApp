@@ -1,6 +1,7 @@
 ﻿using FirstApp.Data;
 using FirstApp.Models;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -29,7 +30,7 @@ namespace FirstApp.Views
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             Category category = (Category)BindingContext;
-            if(category != null)
+            if(!String.IsNullOrWhiteSpace(category.Name))
             {
                 await App.CategoriesDB.SaveCategoryAsync(category);
                 await Shell.Current.GoToAsync("..");

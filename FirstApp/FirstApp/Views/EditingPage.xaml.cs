@@ -27,7 +27,7 @@ namespace FirstApp.Views
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             Container container = (Container)BindingContext;
-            if(container != null)
+            if(!String.IsNullOrWhiteSpace(container.Text) & !String.IsNullOrWhiteSpace(container.MassOfContainer))
             {
                 await App.ContainersDB.SaveContainerAsync(container);
                 await Shell.Current.GoToAsync("..");
