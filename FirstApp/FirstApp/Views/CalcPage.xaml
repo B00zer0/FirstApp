@@ -28,7 +28,7 @@
                 <Picker x:Name="MyPicker"  
                         ItemDisplayBinding="{Binding Text}"
                         SelectedIndexChanged="MyPicker_SelectedIndexChanged"
-                        Title="Контейнер"/>
+                        Title="Контейнер" />
             </Frame> 
             
             <Frame BackgroundColor="#2e2e2e"  Grid.Column="2" Grid.Row="0" >
@@ -68,7 +68,10 @@
                         SelectedIndexChanged="SavePicker_SelectedIndexChanged"
                         Title="Категория"/>
         </Frame>
-        <Button Text="Сохранить" x:Name="BtnSave" Clicked="BtnSave_Clicked" />
+        <Grid>
+            <Button Text="Сохранить" x:Name="BtnSave" Clicked="BtnSave_Clicked" Grid.Column="1" />
+            <Button Text="Добавить" x:Name="BtnAdd" Clicked="BtnAdd_Clicked" Grid.Column="0"/>
+        </Grid>
 
     </StackLayout>
 
