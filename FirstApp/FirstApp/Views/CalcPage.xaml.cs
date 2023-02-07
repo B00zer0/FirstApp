@@ -84,11 +84,8 @@ namespace FirstApp.Views
 
         private async void BtnSave_Clicked(object sender, EventArgs e)
         {
-            if(category != null)
-            {
-                category.CategoryMass = result_output.Text;
-                await App.CategoriesDB.UpdateCategoryAsync(category);
-            }
+            category.CategoryMass = result_output.Text;
+            await App.CategoriesDB.UpdateCategoryAsync(category);
         }
     }
 }
