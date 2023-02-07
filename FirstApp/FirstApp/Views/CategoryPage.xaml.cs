@@ -38,6 +38,15 @@ namespace FirstApp.Views
             }
         }
 
+        private async void EditingBtn_Clicked(object sender, EventArgs e)
+        {
+            Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
+            if (category != null)
+            {
+                BindingContext = category;
+            }
+        }
+
         private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection != null)
@@ -55,6 +64,10 @@ namespace FirstApp.Views
             {
                 await App.CategoriesDB.DeleteCategoryAsync(category);
                 collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            }
+            else
+            {
+                await DisplayAlert("Не выбран контейнер", "Выберете контейнер, который желаете удалить", "OK");
             }
         }
     }
