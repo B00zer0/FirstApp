@@ -27,9 +27,12 @@ namespace FirstApp.Views
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             Container container = (Container)BindingContext;
-            await App.ContainersDB.SaveContainerAsync(container);
-            await Shell.Current.GoToAsync("..");
-            collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            if(container != null)
+            {
+                await App.ContainersDB.SaveContainerAsync(container);
+                await Shell.Current.GoToAsync("..");
+                collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            }
         }
 
         private  void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,8 +47,11 @@ namespace FirstApp.Views
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
             Container container = await App.ContainersDB.GetContainerAsync(_containerId);
-            await App.ContainersDB.DeleteContainerAsync(container);
-            collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            if(container != null)
+            {
+                await App.ContainersDB.DeleteContainerAsync(container);
+                collectionView.ItemsSource = await App.ContainersDB.GetContainersAsync();
+            }
         }
 
     }
