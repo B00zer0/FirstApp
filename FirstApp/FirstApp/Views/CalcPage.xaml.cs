@@ -89,7 +89,8 @@ namespace FirstApp.Views
             if(category != null)
             {
                 category.CategoryMass = result_output.Text;
-                await App.CategoriesDB.UpdateCategoryAsync(category);
+                await App.CategoriesDB.SaveCategoryAsync(category);
+                
             }
         }
 
@@ -99,7 +100,7 @@ namespace FirstApp.Views
             if (category != null)
             {
                 category.CategoryMass = Convert.ToString(Convert.ToDouble(result_output.Text) + Convert.ToDouble(category.CategoryMass)); 
-                await App.CategoriesDB.UpdateCategoryAsync(category);
+                await App.CategoriesDB.SaveCategoryAsync(category);
             }
         }
     }

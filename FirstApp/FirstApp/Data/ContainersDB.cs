@@ -28,8 +28,14 @@ namespace FirstApp.Data
 
         public Task SaveContainerAsync(Container container)
         {
-            
+            if(container.ID != 0)
+            {
+                return db.UpdateAsync(container);
+            }
+            else
+            {
                 return db.InsertAsync(container);
+            }
             
         }
 
