@@ -2,6 +2,7 @@
 using SQLite;
 using FirstApp.Models;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace FirstApp.Data
 {
@@ -28,11 +29,14 @@ namespace FirstApp.Data
 
         public Task SaveCategoryAsync(Category category)
         {
-                return db.InsertAsync(category);   
-        }
-        public Task UpdateCategoryAsync(Category category)
-        {
-                return db.UpdateAsync(category);   
+            if (category.ID != 0)
+            {
+                return db.UpdateAsync(category);
+            }
+            else
+            {
+                return db.InsertAsync(category);
+            }
         }
 
         public Task<int> DeleteCategoryAsync(Category category)

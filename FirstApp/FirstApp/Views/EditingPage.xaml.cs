@@ -27,7 +27,7 @@ namespace FirstApp.Views
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             Container container = (Container)BindingContext;
-            if(container != null)
+            if(!String.IsNullOrWhiteSpace(container.Text) & !String.IsNullOrWhiteSpace(container.MassOfContainer))
             {
                 await App.ContainersDB.SaveContainerAsync(container);
                 await Shell.Current.GoToAsync("..");
@@ -40,6 +40,7 @@ namespace FirstApp.Views
             if(e.CurrentSelection != null)
             {
                 Container container = (Container)e.CurrentSelection.FirstOrDefault();
+                
                 _containerId = container.ID;
             }
         }
@@ -54,5 +55,13 @@ namespace FirstApp.Views
             }
         }
 
+        private async void EditingBtn_Clicked(object sender, EventArgs e)
+        {
+            Container container = await App.ContainersDB.GetContainerAsync(_containerId);
+            if(container != null)
+            {
+                BindingContext = container;
+            }
+        }
     }
 }
