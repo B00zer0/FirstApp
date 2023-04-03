@@ -23,6 +23,7 @@ namespace FirstApp.Views
         private string _result;
         Category category;
         Container container;
+        
 
         public CalcPage()
         {
@@ -51,7 +52,14 @@ namespace FirstApp.Views
             _totalMass = Convert.ToDouble(Mass.Text);
             _numOfContainers = Convert.ToInt32(numofcontainers.Text);
             _result = Convert.ToString(_totalMass - _container * _numOfContainers);
+            if (_totalMass < _container * _numOfContainers)
+            {
+                DisplayAlert("Превышение допустимой массы контейнера(-ов)", "Вес пустого(-ых) контейнера(-ов) не может превышать общий вес", "OK");
+                _result = "0";
+            }
         }
+
+
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
@@ -82,6 +90,16 @@ namespace FirstApp.Views
         private void SavePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             category = (Category)SavePicker.SelectedItem;
+            if (SavePicker.SelectedIndex >= 0)
+            {
+                BtnAdd.IsEnabled = true;
+                BtnSave.IsEnabled = true;
+            }
+            else
+            {
+                BtnSave.IsEnabled = false;
+                BtnAdd.IsEnabled = false;
+            }
         }
 
         private async void BtnSave_Clicked(object sender, EventArgs e)

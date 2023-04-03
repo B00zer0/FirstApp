@@ -37,7 +37,7 @@
             </Frame>
 
             <Frame BackgroundColor="#2e2e2e"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
-                <Entry x:Name="Mass" Placeholder="Общий Вес" Keyboard="Numeric"
+                        <Entry x:Name="Mass" Placeholder="Общий Вес" Keyboard="Numeric"
                         ClearButtonVisibility ="WhileEditing" ReturnType="Next"/>
             </Frame>
             
@@ -55,8 +55,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Button Text="+" x:Name="BtnPlus" Clicked="BtnPlus_Clicked" Padding="30,10,30,10" CornerRadius="0" Grid.Column="1" Grid.Row="0"/>
+
+            <Button Text="+" x:Name="BtnPlus" Clicked="BtnPlus_Clicked" Padding="30,10,30,10" CornerRadius="0" Grid.Column="1" Grid.Row="0" />
             <Button Text="=" x:Name="BtnResult" Clicked="BttResult_Clicked" Padding="30,10,30,10" CornerRadius="0" Grid.Column="2" Grid.Row="0" />
             <Button Text="CLR" x:Name="BtnClr" Clicked="BtnClr_Clicked" Padding="30,10,30,10" CornerRadius="0" Grid.Column="0" Grid.Row="0" />
 
@@ -69,8 +69,26 @@
                         Title="Категория"/>
         </Frame>
         <Grid>
-            <Button Text="Сохранить" x:Name="BtnSave" Clicked="BtnSave_Clicked" Grid.Column="1" />
-            <Button Text="Добавить" x:Name="BtnAdd" Clicked="BtnAdd_Clicked" Grid.Column="0"/>
+            <Button Text="Сохранить" x:Name="BtnSave" Clicked="BtnSave_Clicked" Grid.Column="1" IsEnabled="False" />
+            <Button Text="Добавить" x:Name="BtnAdd" Clicked="BtnAdd_Clicked" Grid.Column="0" IsEnabled="False"/>
+            
+        <CollectionView x:Name="History"
+                        Header="История"
+                        ItemsSource="{Binding Category}"
+                        Grid.Row="1"
+                        Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         </Grid>
 
     </StackLayout>

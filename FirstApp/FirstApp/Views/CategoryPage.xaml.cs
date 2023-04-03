@@ -35,31 +35,28 @@ namespace FirstApp.Views
                 await App.CategoriesDB.SaveCategoryAsync(category);
                 await Shell.Current.GoToAsync("..");
                 collectionView.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+                BindingContext = new Category();
             }
         }
 
         private async void EditingBtn_Clicked(object sender, EventArgs e)
         {
+            var item = sender as SwipeItem;
+            _categoryId = (item.CommandParameter as Category).ID;
             Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
+            await Shell.Current.GoToAsync("..");
             if (category != null)
             {
                 BindingContext = category;
             }
         }
 
-        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.CurrentSelection != null)
-            {
-                Category category = (Category)e.CurrentSelection.FirstOrDefault();
-                
-                _categoryId = category.ID;
-            }
-        }
-
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
+            var item = sender as SwipeItem;
+            _categoryId = (item.CommandParameter as Category).ID;
             Category category = await App.CategoriesDB.GetCategoryAsync(_categoryId);
+            await Shell.Current.GoToAsync("..");
             if (category != null)
             {
                 await App.CategoriesDB.DeleteCategoryAsync(category);
