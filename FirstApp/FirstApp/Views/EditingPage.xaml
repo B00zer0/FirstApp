@@ -5,8 +5,8 @@
              Background="#1e1e1e">
     <StackLayout>
 
-        <Entry  Placeholder="Название контейнера" Text="{Binding Text}"/>
-        <Entry  Placeholder="Вес контейнера" Text="{Binding MassOfContainer}" Keyboard="Numeric"/>
+        <Entry x:Name="ContainerEntr" Placeholder="Название контейнера" Text="{Binding Text}"/>
+        <Entry x:Name="ContainerMassEntr" Placeholder="Вес контейнера" Text="{Binding MassOfContainer}" Keyboard="Numeric"/>
         <Grid ColumnSpacing="1" Padding="11,11,15,10">
             
             <Grid.ColumnDefinitions>
@@ -18,32 +18,45 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             
-            <Button Text="Сохранить" Clicked="AddBtn_Clicked" Grid.Column="0"/>
-            <Button Text="Удалить" Clicked="DeleteBtn_Clicked" Padding="30,10,30,10" Grid.Column="1"/>
-            <Button Text="Редактировать" Clicked="EditingBtn_Clicked" Grid.Column="2"/>
+            <Button Text="Сохранить" x:Name="AddBtn" Clicked="AddBtn_Clicked" Grid.Column="0"/>
+            
 
         </Grid>
-        
+
 
         <CollectionView x:Name="collectionView"
-                            Margin="20"
-                            SelectionMode="Single"
-                            SelectionChanged="CollectionView_SelectionChanged">
+                            Margin="20">
 
-
-            
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout>
-                        <Label Text="{Binding Text}"
-                               FontSize="Medium"/>
-                        <Label Text="{Binding MassOfContainer}"
-                               FontSize="Small"/>
-                    </StackLayout>
+                    <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Удалить"
+                                               BackgroundColor="Red"
+                                               x:Name="DeleteSwipeItem"
+                                               Invoked="DeleteBtn_Clicked"
+                                               CommandParameter="{Binding .}"/>
+                                    <SwipeItem Text="Редактировать"
+                                               BackgroundColor="Green"
+                                               x:Name="EditSwipeItem"
+                                               Invoked="EditingBtn_Clicked"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <StackLayout>
+                            <Grid>
+                                <Label Text="{Binding Text}"
+                                   FontSize="Medium" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+                                <Label Text="{Binding MassOfContainer}"
+                                   FontSize="Small" Grid.Column="0" Grid.Row="1"/>
+                            </Grid>
+                         </StackLayout>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
