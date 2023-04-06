@@ -9,7 +9,8 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using static Xamarin.Essentials.Permissions;
 using FirstApp.Models;
 using static SQLite.SQLite3;
-
+using Xamarin.Forms.Internals;
+using System.Data.Common;
 
 namespace FirstApp.Views
 {
@@ -21,10 +22,11 @@ namespace FirstApp.Views
         private double _totalMass;
         private int _numOfContainers;
         private string _result;
-        Category category;
-        Container container;
-        
-
+        private Category category;
+        private Container container;
+        private CategoryAction categoryAction;
+        private readonly int deadLine = 30;
+        private readonly int saveRange = 10;
         public CalcPage()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace FirstApp.Views
         {
             MyPicker.ItemsSource = await App.ContainersDB.GetContainersAsync();
             SavePicker.ItemsSource = await App.CategoriesDB.GetCategoriesAsync();
+            History.ItemsSource = await App.ActionsDB.GetCategoryActions();
             base.OnAppearing();   
         }
 
@@ -43,6 +46,7 @@ namespace FirstApp.Views
             container = (Container)MyPicker.SelectedItem;
         }
 
+        // Подсчет содержимого контейнера/банки
         private void ContainerContentCounting()
         {
             if(container != null)
@@ -58,8 +62,6 @@ namespace FirstApp.Views
                 _result = "0";
             }
         }
-
-
 
         private void BttResult_Clicked(object sender, EventArgs e)
         {
@@ -102,24 +104,50 @@ namespace FirstApp.Views
             }
         }
 
-        private async void BtnSave_Clicked(object sender, EventArgs e)
+        // Сохранение/добавление результата в категорию
+        private async void AddInCategory(bool isSave)
         {
-            if(category != null)
+            //Чистим историю при достижении предела
+            if (categoryAction != null && categoryAction.Id > deadLine)                                 
             {
-                category.CategoryMass = result_output.Text;
-                await App.CategoriesDB.SaveCategoryAsync(category);
-                
+                await App.ActionsDB.DeleteAllActions(categoryAction.Id - saveRange);
+            }
+
+            categoryAction = new CategoryAction
+            {
+                OldMass = category.CategoryMass
+            };
+            
+
+            if (isSave && category != null) 
+            {
+                categoryAction.Action = $"{category.Name}({category.CategoryMass}) = {result_output.Text}";     
+                await App.ActionsDB.SaveCategoryAction(categoryAction);
+                History.ItemsSource = await App.ActionsDB.GetCategoryActions();     //Если нажата кнопка сохранения в катеорию,
+                category.CategoryMass = result_output.Text;                         //то записываем результат вычислений
+                await App.CategoriesDB.SaveCategoryAsync(category);                 //вместо предыдущего и делаем запись в историю
+
+
+            }
+            else if (category != null) 
+            {
+                category.CategoryMass = Convert.ToString(Convert.ToDouble(result_output.Text)           //В обратном случае -
+                                                         + Convert.ToDouble(category.CategoryMass));    //прибавляем результат к массе в категории
+                await App.CategoriesDB.SaveCategoryAsync(category);                                     //Также отмечая это в истории        
+                categoryAction.Action = $"{category.Name}({categoryAction.OldMass} +" +
+                                        $" {result_output.Text}) = {category.CategoryMass}";
+                await App.ActionsDB.SaveCategoryAction(categoryAction);
+                History.ItemsSource = await App.ActionsDB.GetCategoryActions();
             }
         }
-
-        private async void BtnAdd_Clicked(object sender, EventArgs e)
+        private void BtnSave_Clicked(object sender, EventArgs e)
         {
-           
-            if (category != null)
-            {
-                category.CategoryMass = Convert.ToString(Convert.ToDouble(result_output.Text) + Convert.ToDouble(category.CategoryMass)); 
-                await App.CategoriesDB.SaveCategoryAsync(category);
-            }
+            AddInCategory(true);
+        }
+
+        private void BtnAdd_Clicked(object sender, EventArgs e)
+        {
+            AddInCategory(false);
         }
     }
 }

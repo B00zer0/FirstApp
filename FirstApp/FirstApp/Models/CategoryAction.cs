@@ -2,7 +2,7 @@
 
 namespace FirstApp.Models
 {
-    class CategoryAction
+    public class CategoryAction
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
