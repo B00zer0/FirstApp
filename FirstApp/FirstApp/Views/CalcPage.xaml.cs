@@ -25,8 +25,10 @@ namespace FirstApp.Views
         private Category category;
         private Container container;
         private CategoryAction categoryAction;
-        private readonly int deadLine = 30;
-        private readonly int saveRange = 10;
+        private readonly int deadLine = 30; //Кол-во обектов в истории, при достижении которого начинается ее отчистка
+        private readonly int saveRange = 10; //Кол-во последних объектов, которые мы хотим оставить, после частичной отчистки истории 
+        private int lowId; //Id после которого начинается удаление объектов из истории
+        private int allRows; //Все строки в истории
         public CalcPage()
         {
             InitializeComponent();
@@ -107,11 +109,7 @@ namespace FirstApp.Views
         // Сохранение/добавление результата в категорию
         private async void AddInCategory(bool isSave)
         {
-            //Чистим историю при достижении предела
-            if (categoryAction != null && categoryAction.Id > deadLine)                                 
-            {
-                await App.ActionsDB.DeleteAllActions(categoryAction.Id - saveRange);
-            }
+
 
             categoryAction = new CategoryAction
             {
@@ -138,6 +136,14 @@ namespace FirstApp.Views
                                         $" {result_output.Text}) = {category.CategoryMass}";
                 await App.ActionsDB.SaveCategoryAction(categoryAction);
                 History.ItemsSource = await App.ActionsDB.GetCategoryActions();
+            }
+
+            allRows = await App.ActionsDB.GetAllRows();
+            lowId = categoryAction.Id - saveRange;
+            //Чистим историю при достижении предела, оставляя часть последних действий
+            if (allRows >= deadLine)
+            {
+                await App.ActionsDB.DeleteAllActions(lowId);
             }
         }
         private void BtnSave_Clicked(object sender, EventArgs e)
