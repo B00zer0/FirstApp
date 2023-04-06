@@ -1,13 +1,12 @@
 ﻿using FirstApp.Models;
 using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace FirstApp.Data
 {
-    class ActionsDB
+    public class ActionsDB
     {
         public static SQLiteAsyncConnection db;
 
@@ -19,13 +18,38 @@ namespace FirstApp.Data
 
         public Task<List<CategoryAction>> GetCategoryActions() 
         {
-            return db.Table<CategoryAction>().ToListAsync();
+            return db.Table<CategoryAction>().OrderByDescending(i => i.Id).ToListAsync(); //Получаем список в порядке убывания id
+        }
+
+
+
+ 
+
+        public Task DeleteAllActions(int x)
+        {
+            return db.Table<CategoryAction>().DeleteAsync(i => i.Id < x);
         }
 
         public Task<CategoryAction> GetCategoryAction(int id) 
         {
-            return db.Table<CategoryAction>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            return db.Table<CategoryAction>().Where(i => i.Id == id).FirstOrDefaultAsync(); 
         }
 
+        public Task SaveCategoryAction(CategoryAction action)
+        {
+            if(action.Id != 0)
+            {
+                return db.UpdateAsync(action);
+            }
+            else
+            {
+                return db.InsertAsync(action);
+            }
+        }
+
+        public Task DeleteCategoryAction(CategoryAction action) 
+        {
+                return db.DeleteAsync(action);
+        }
     }
 }

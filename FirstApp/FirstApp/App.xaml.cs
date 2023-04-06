@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using FirstApp.Data;
 using System.IO;
 
@@ -10,7 +9,7 @@ namespace FirstApp
     {
         static ContainersDB containersDB;
         static CategoriesDB categoriesDB;
-
+        static ActionsDB actionsDB;
         public static ContainersDB ContainersDB
         {
             get           
@@ -22,6 +21,20 @@ namespace FirstApp
                         (Environment.SpecialFolder.LocalApplicationData), "ContainersDatabase.db3"));
                 } 
                return containersDB;
+            }
+        }
+
+        public static ActionsDB ActionsDB
+        {
+            get
+            {
+                if (actionsDB == null)
+                {
+                    actionsDB = new ActionsDB(
+                        Path.Combine(Environment.GetFolderPath
+                        (Environment.SpecialFolder.LocalApplicationData), "ActionsDatabase.db3"));
+                }
+                return actionsDB;
             }
         }
         public static CategoriesDB CategoriesDB
