@@ -1,6 +1,7 @@
 ﻿using FirstApp.Models;
 using SQLite;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -22,12 +23,14 @@ namespace FirstApp.Data
         }
 
 
-
- 
-
-        public Task DeleteAllActions(int x)
+        public Task<int> GetAllRows()
         {
-            return db.Table<CategoryAction>().DeleteAsync(i => i.Id < x);
+            return db.Table<CategoryAction>().CountAsync();
+        }
+ 
+        public Task DeleteAllActions(int lowId)
+        {
+            return db.Table<CategoryAction>().DeleteAsync(i => lowId > i.Id);
         }
 
         public Task<CategoryAction> GetCategoryAction(int id) 
